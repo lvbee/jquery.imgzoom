@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>图片移动、缩放和旋转 - jquery.imgzoom.js</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,target-densitydpi=high-dpi,user-scalable=yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="shortcut icon" href="https://lvbee.com.cn/fs/images/logo.png" type="image/x-icon" />
+		<link type="text/css" rel="stylesheet" href="https://lvbee.com.cn/fs/frame/layui/css/layui.css" />
+		<link type="text/css" rel="stylesheet" href="https://lvbee.com.cn/fs/css/index.css" />
+		<script src="https://lvbee.com.cn/fs/frame/layui/layui.js" type="text/javascript"></script>
+		<script src="https://lvbee.com.cn/fs/js/jquery-1.8.2.min.js" type="text/javascript"></script>
+		<script src="https://lvbee.com.cn/fs/js/layui.main.js" type="text/javascript"></script>
+		<style type="text/css">
+			.imgzoom {
+				border: 1px solid #eee;
+				background-color: #f4f4f4;
+				display: inline-block;
+			}
+
+			#myDocument {
+				min-height: 520px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="index">
+			<div class="imgzoom">
+				<img src="./demo.png" />
+			</div>
+			<!-- <div id="logs" class="logs" style="font-size: 12px;color: #aaa;height: 220px;overflow: auto;"></div> -->
+			<div class="imgzoom">
+				<img src="https://www.lvbee.com.cn/fs/images/pro-monkey-cartoon.jpg" />
+			</div>
+			<hr />
+			<div style="margin: 0 10px;">
+				<a href="./jquery.imgzoom.min.js" target="_blank" class="lv-ku-a">jquery.imgzoom.min.js 下载</a>
+			</div>
+			<!-- 文档显示部分 -->
+			<iframe id="myDocument" src="../../lvdoc/share.jsp?key=93b92a3dfbf0b5f83d0ddc759b12e873" width="100%" frameborder="0" scrolling="auto" marginheight="0" marginwidth="0"
+				onload="loadIframe(this)"></iframe>
+			<script type="text/javascript">
+				function loadIframe(me, count) {
+					var iframe = document.getElementById('myDocument');
+					if (!iframe.contentWindow) return console.log('iframe:', !iframe);
+					var myDoc = iframe.contentWindow.document;
+					if (!myDoc) return console.log('myDoc:', !myDoc);
+					var bodyHeight = myDoc.body.scrollHeight;
+					iframe.style.height = Math.max(bodyHeight, 520) + 10 + 'px';
+					count = count || 0;
+					if (count > 10 || bodyHeight > 1000) return;
+					setTimeout(function() {
+						loadIframe(me, count + 1);
+					}, 400);
+				}
+			</script>
+		</div>
+	</body>
+	<script type="text/javascript" src="./jquery.imgzoom.js"> </script>
+	<script type="text/javascript">
+		$(function() {
+			$('.imgzoom').imgzoom({
+				// src:'',
+				width: 400,
+				height: 400,
+				autoZoom: true, //false,
+				scale: {
+					enabled: true, //是否允许缩放
+					min: 0.1, //允许缩放+最小值
+					max: 10, //允许缩放+最大值
+					btns: true,
+				},
+				drag: {
+					enabled: true,
+					overflowX: 20,
+					overflowY: 20,
+				},
+				rotate: {
+					enabled: true,
+					btns: true,
+				},
+				success: function(e) {
+					// console.warn(e.trigger('setScale', 0.6));
+					// e.trigger('setScale', 0.6);
+					// e.trigger('rotate', false);
+					// setTimeout(function() {
+					// e.trigger('changeImage', 'https://www.lvbee.com.cn/fs/images/pro-monkey.jpg', function(e1) {
+					// 	console.warn(e1);
+					// });
+					// }, 3000);
+				},
+				onScale: function(scale) {
+					console.log('比例被改变了：', scale);
+				}
+			});
+		});
+	</script>
+</html>
